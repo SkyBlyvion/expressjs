@@ -22,3 +22,12 @@ npm i ejs ( templates engines )
 
 # uninstall librairies
 npm uninstall nodemon
+
+# definition des routes
+"/" => accueil ( access if authenticated only )
+"/login" => connexion
+"/register" => enregistrement
+
+# definition des modeles
+"User" = "name", "email", "password"
+"Post" = "title", "content", "author", "created_at", "updated_at"
