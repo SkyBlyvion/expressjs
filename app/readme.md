@@ -8,6 +8,7 @@ npm i express
 
 # start server
 npm start
+ docker exec -it nodeexpress npm start
 
 # more librairies
 npm i mongoose ( object data modeling "doctrine for mongo" )

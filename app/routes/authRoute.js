@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('../controller/authController');
 
 // Connexion Form Page / rte GET Form
 router.get('/login', (req, res)=>{
@@ -7,9 +8,7 @@ router.get('/login', (req, res)=>{
 })
 
 // Register Form Page / rte GET Form
-router.get('/register', (req, res)=>{
-    res.render('register');
-})
+router.get('/register', authController.showRegistrationForm)
 
 // if no export, routeur not working
 module.exports = router; 
