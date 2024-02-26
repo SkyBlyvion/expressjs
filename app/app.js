@@ -5,11 +5,16 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
+const flash = require('express-flash');
+
 // init application
 const app = express();
 
 // Connexion to MongoDB
-//TODO: do the connexion to mongoDB
+mongoose.connect('mongodb://expressmongo:27017/mongoexpress',{
+
+
+})
 
 // Session config
 app.use(session({
@@ -25,6 +30,9 @@ app.use(bodyParser.json());
 // Passport config
 app.use(passport.initialize());
 app.use(passport.session());
+
+// config flash messages
+app.use(flash());
 
 // Routes Configuration
 const authRoutes = require('./routes/authRoute');
