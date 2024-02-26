@@ -1,0 +1,44 @@
+version: '3.8.0'
+# definition du reseau local de nos containers
+networks:
+  expressnet:
+
+volumes:
+  mongoexpressdb:
+
+# definition des services
+services:
+  # container web
+  expressnode:
+    container_name: nodeexpress
+    build: 
+      context: ./node
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./node:/usr/src/app
+    environment:
+      TZ: "Europe/Paris"
+    depends_on:
+      - expressmongo
+    networks:
+      - expressnet
+    tty: true
+  
+  # container mongo
+  expressmongo:
+    container_name: mongoexpress
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongoexpressdb:/data/db
+      - ./datascript:/datascript
+    environment:
+      TZ: "Europe/Paris"
+      MONGODB_INITDB_ROOT_USERNAME: admin
+      MONGODB_INITDB_ROOT_PASSWORD: admin
+    networks:
+      - expressnet
+    
+  # container mongo-express
