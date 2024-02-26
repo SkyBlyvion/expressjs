@@ -10,7 +10,7 @@ app.get('/', (req,res)=>{
 
 // test page
 app.get('/test', (req,res)=>{
-    res.send('Hello test');
+    res.send('Hello tesaat');
 })
 
 
