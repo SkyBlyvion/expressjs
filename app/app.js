@@ -6,19 +6,24 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
 const flash = require('express-flash');
+require('dotenv').config();
 
 // init application
 const app = express();
 
-// Connexion to MongoDB
-mongoose.connect('mongodb://expressmongo:27017/mongoexpress',{
 
+// Connexion to MongoDB
+mongoose.connect(process.env.MONGODB_URI,{
 
 })
+// mongoose.connect('mongodb://expressmongo:27017/mongoexpress',{
+
+
+// })
 
 // Session config
 app.use(session({
-    secret: 'user_info', // Secret Key for data crypt
+    secret: process.env.SESSION_SECRET, // Secret Key for data crypt
     resave: true, // save the session 
     saveUninitialized: true // save empty sessions
 }))
@@ -48,6 +53,6 @@ app.set('view engine', 'ejs');
 app.set('views', './view');
 
 // Listen on port 3000
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
     console.log(`Server listening on port http://localhost:${PORT}`);})
