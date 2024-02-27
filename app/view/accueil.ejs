@@ -3,4 +3,20 @@
 
 <h1>Accueil</h1>
 
+<!-- Liste des posts enrregistré en bdd -->
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <%- userPosts.map(post => {
+        return `
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">${post.title}</h5>
+                    <p class="card-text">${post.content}</p>
+                </div>
+            </div>
+        </div>
+        `
+    }).join('') %>
+
 <%- include('./templates/footer')%>

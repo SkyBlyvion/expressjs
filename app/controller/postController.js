@@ -1,7 +1,18 @@
 const Post = require('../model/postScheme');
 // méthode pour afficher la page d'accueil
-exports.showHome = (req, res)=>{
-    res.render('accueil');
+exports.showHome = async (req, res)=>{
+    try {
+        // on récupére l'id de l'user connecté
+        const userId = req.user._id;
+
+        // on récupére tous les post de l'user connecté
+        const userPosts = await Post.find({author: userId} ).sort({created_at: 'desc'});
+
+        // on renvoie la vue accueil avec les posts de l'user connecté
+        res.render('accueil', {userPosts});
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 // methode pour afficher le formulaire
