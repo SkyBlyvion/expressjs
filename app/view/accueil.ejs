@@ -1,10 +1,32 @@
 <%- include('./templates/header') %>
 <%- include('./templates/navbar') %>
+<!-- Teacher -->
+<div class="d-flex flex-colums-align-items-center">
+    <h1>Accueil</h1>
+    <div class="d-flex flex-wrap justify-content-start">
+        <% if(userPosts.length > 0 ){ %>
+            <% userPosts.forEach(post=> { %>
+                <div class="card m-3" style="width: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= post.title %></h5> 
+                        <p class="card-text"><%=post.content %></p>
+                        <p class="card-text">
+                            Crée le <%= post.created_at.toLocaleDateString() %> à <%= post.created_at.toLocaleTimeString() %>
+                        </p>
+                        <p class="card-text">
+                            Updated le <%= post.created_at.toLocaleDateString() %> à <%= post.updated_at.toLocaleTimeString() %>
+                        </p>
+                    </div>
+                </div>
+            <% }); %>
+        <% }else{ %>
+            <h2>Aucun post</h2>
+            <a href="/posts/add" class="btn btn-primary mt-3">Creer ton premier poste !</a> 
+        <% }%>
+    </div>
+</div>
 
-<h1>Accueil</h1>
-
-<!-- Liste des posts enrregistré en bdd -->
-
+<!-- Mine -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <%- userPosts.map(post => {
         return `
@@ -13,10 +35,17 @@
                 <div class="card-body">
                     <h5 class="card-title">${post.title}</h5>
                     <p class="card-text">${post.content}</p>
+                    <p class="card-text">
+                        Crée le ${post.created_at.toLocaleDateString()} à ${post.created_at.toLocaleTimeString()}
+                    </p>
+                    <p class="card-text">
+                        Updated le ${post.created_at.toLocaleDateString()} à ${post.updated_at.toLocaleTimeString()}
+                    </p>
                 </div>
             </div>
         </div>
         `
     }).join('') %>
+</div>
 
 <%- include('./templates/footer')%>
