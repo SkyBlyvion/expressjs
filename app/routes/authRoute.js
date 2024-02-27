@@ -3,14 +3,16 @@ const router = express.Router();
 const authController = require('../controller/authController');
 
 // Connexion Form Page / rte GET Form
-router.get('/login', (req, res)=>{
-    res.render('login');
-})
+router.get('/login', authController.showLoginForm);
+
+// Route qui réceptionne les donnéeés du formulaire de connexion
+router.post('/login', authController.loginUser);
 
 // Register Form Page / rte GET Form
 router.get('/register', authController.showRegistrationForm);
+
 // route qui receptionne les donnéeés du formulaire d'inscription
 router.post('/register', authController.registerUser);
 
-// if no export, routeur not working
+// if no export, router not working
 module.exports = router; 
