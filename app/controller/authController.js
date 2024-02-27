@@ -1,3 +1,4 @@
+const passport = require('../passport-config');
 const User = require('../model/userScheme');
 const bcrypt = require('bcrypt');
 
@@ -52,6 +53,14 @@ exports.showLoginForm = (req, res)=>{
     res.render('login');
 }
 
-exports.loginUser = (req,res)=>{
-    
+exports.loginUser = passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+})
+
+// deconnextion de l'user
+exports.logoutUser = (req, res)=>{
+    req.logout();
+    res.redirect('/login')
 }

@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controller/authController');
+const postController = require('../controller/postController');
+
+// route d'accueil
+router.get('/', postController.showHome);
+// router.get('/login', authController.showHome);
 
 // Connexion Form Page / rte GET Form
 router.get('/login', authController.showLoginForm);

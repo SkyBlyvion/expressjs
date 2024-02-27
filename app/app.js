@@ -41,7 +41,7 @@ const userRoutes = require('./routes/userRoute');
 
 app.use('/', authRoutes);
 app.use('/posts', postRoutes);
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 
 // config view engine
 app.set('view engine', 'ejs');
