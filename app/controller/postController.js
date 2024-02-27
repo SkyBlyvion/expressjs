@@ -47,3 +47,27 @@ exports.addPost = async (req, res)=>{
         res.render('post/add', {error: 'Une erreur est survenue.'});
     }
 };
+
+// methode pour afficher le formulaire de modification d'un post
+exports.showEditPost = async (req, res)=>{
+    try {
+        // on recupére l'id du post à modifier
+        const postId = req.params.id;
+
+        // on récupére les données du post grace a son id
+        const post = await Post.findById(postId);
+
+        // on vérifie si l'user est l'autheur du poste
+        if(post.author.equals(req.user._id)){
+
+            // on renvoie la vue de modification du post avec les données du post
+            res.render('post/edit', {post}, );
+        }else {
+            // on redirige vers la page d'accueil
+            res.redirect('/');
+        }
+
+    } catch (error) {
+        res.render('post/edit', {error: 'Une erreur est survenue.'});
+    }
+};
