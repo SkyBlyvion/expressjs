@@ -11,14 +11,11 @@ require('dotenv').config();
 // init application
 const app = express();
 
-
 // Connexion to MongoDB
 mongoose.connect(process.env.MONGODB_URI,{
 
 })
 // mongoose.connect('mongodb://expressmongo:27017/mongoexpress',{
-
-
 // })
 
 // Session config
@@ -38,6 +35,9 @@ app.use(passport.session());
 
 // config flash messages
 app.use(flash());
+
+// config public folder
+app.use(express.static('public'));
 
 // Routes Configuration
 const authRoutes = require('./routes/authRoute');
