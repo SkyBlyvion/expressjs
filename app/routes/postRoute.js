@@ -17,4 +17,7 @@ router.get('/edit/:id', ensureAuthenticator, postController.showEditPost);
 // route pour receptionner les données du formulaire de modification de post
 router.post('/edit/:id', ensureAuthenticator, postController.editPost);
 
+// route pour supprimer un post
+router.get('/delete/:id', ensureAuthenticator, postController.deletePost);
+
 module.exports = router; 

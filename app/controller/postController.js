@@ -18,7 +18,7 @@ exports.showHome = async (req, res)=>{
 // methode pour afficher le formulaire
 exports.showAddPost = (req, res)=>{
     res.render('post/add', {error: null});
-}
+};
 
 // méthode pour rajouter un post
 exports.addPost = async (req, res)=>{
@@ -87,16 +87,47 @@ exports.editPost = async (req, res)=>{
             post.title = title;
             post.content = content;
             post.updated_at = new Date;
-        } 
+            // on sauvegarde le post dans la bdd mongoose mongodb
+            await post.save();
 
-        // on sauvegarde le post dans la bdd mongoose mongodb
-        await post.save();
+            // autre méthode pour mettre a jour le post 
+            // await Post.updateOne({_id: postId}, {$set: {title: title, content: content, updated_at: new Date()}})
 
-        // on redirige vers la page d'accueil
-        res.redirect('/');
 
+            // on redirige vers la page d'accueil
+            res.redirect('/');
+        } else {
+            // on redirige vers la page d'accueil
+            res.redirect('/');
+        }
     } catch (error) {
         // on retourne le formulaire avec message d'erreur
         res.render('post/edit', {error: 'Une erreur est survenue.'});
     }
-}
+};
+
+// méthode pour supprimer un poste
+exports.deletePost = async (req, res)=>{
+    try {
+        // on recupere l'id du post
+        const postId = req.params.id;
+        // on recupére les données du post grace a son id
+        const post = await Post.findById(postId);
+        // on verifie si user est l'autheur du post
+        if(!post){
+            return res.status(404).send({message: 'Stop playing with urls'})
+        }
+        // on verifie si user est l'autheur du post
+        if(post.author.equals(req.user._id)){
+            // on supprime le post
+            await Post.deleteOne({_id: postId});
+            // on redirige vers la page d'accueil
+            res.redirect('/');
+        } else {
+            // on redirige vers la page d'accueil
+            res.redirect('/');
+        }
+    } catch (error) {
+        
+    }
+};
