@@ -64,3 +64,19 @@ exports.logoutUser = (req, res)=>{
     req.logout();
     res.redirect('/login')
 }
+
+// affiche le profil de l'user connecté
+exports.showProfile = async (req, res)=>{
+    try {
+        // on récupére l'id de l'user connecté
+        const userId = req.user._id;
+
+        // on récupére les information de l'user connecté
+        const user = await User.findById(userId);
+
+        // on renvoie la vue accueil avec les infos de l'user connecté
+        res.render('profile', {user});
+    } catch (error) {
+        console.log(error);
+    }
+}

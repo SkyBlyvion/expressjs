@@ -20,4 +20,5 @@ router.post('/edit/:id', ensureAuthenticator, postController.editPost);
 // route pour supprimer un post
 router.get('/delete/:id', ensureAuthenticator, postController.deletePost);
 
+
 module.exports = router; 

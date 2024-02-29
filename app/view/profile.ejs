@@ -1,0 +1,17 @@
+<%- include('./templates/header') %>
+<%- include('./templates/navbar') %>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Profil de: <%= user.name %></h5>
+          <p class="card-text">Email: <%= user.email %></p>
+          <a href="/users/profile/edit" class="btn btn-primary">Modifier le Profil</a>
+          <!-- changer mdp, email, nom -->
+        </div>
+    </div>
+
+</div>
+
+<%- include('./templates/footer')%>
