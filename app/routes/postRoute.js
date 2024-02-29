@@ -14,4 +14,7 @@ router.post('/add', ensureAuthenticator, postController.addPost);
 // route qui renvoie le formulaire de modification d'un post
 router.get('/edit/:id', ensureAuthenticator, postController.showEditPost);
 
+// route pour receptionner les données du formulaire de modification de post
+router.post('/edit/:id', ensureAuthenticator, postController.editPost);
+
 module.exports = router; 

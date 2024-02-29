@@ -71,3 +71,32 @@ exports.showEditPost = async (req, res)=>{
         res.render('post/edit', {error: 'Une erreur est survenue.'});
     }
 };
+
+// méthode qui met a jour un poste
+exports.editPost = async (req, res)=>{
+    try {
+        // on recupére les donnée du formulaire
+        const { title, content} = req.body;
+        // on recupere l'id du post à modifier
+        const postId = req.params.id;
+        // on recupére les données du post grace a son id
+        const post = await Post.findById(postId);
+        // on verifie si user est l'autheur du post
+        if(post.author.equals(req.user._id)){
+            // met a jour el poste
+            post.title = title;
+            post.content = content;
+            post.updated_at = new Date;
+        } 
+
+        // on sauvegarde le post dans la bdd mongoose mongodb
+        await post.save();
+
+        // on redirige vers la page d'accueil
+        res.redirect('/');
+
+    } catch (error) {
+        // on retourne le formulaire avec message d'erreur
+        res.render('post/edit', {error: 'Une erreur est survenue.'});
+    }
+}
