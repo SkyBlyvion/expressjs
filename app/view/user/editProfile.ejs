@@ -1,0 +1,30 @@
+<%- include('../templates/header') %>
+<%- include('../templates/navbar') %>
+<div class="d-flex flex-column align-items-center">
+  <h1>Modifier le profil</h1>
+
+  <% if(error !== null) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= error %>
+    </div>
+<% } %>
+
+
+  <form action="/users/profile/edit" method="POST"> <!-- Updated form action -->
+    <div class="form-group">
+      <label for="name">Name</label> <!-- Updated input name to "name" -->
+      <input type="text" name="name" class="form-control" value="<%= user.name ?? 'toto' %>" required> <!-- Updated input name to "name" -->
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label> <!-- Updated input name to "email" -->
+      <input type="email" name="email" class="form-control" value="<%= user.email %>" required> <!-- Updated input name to "email" -->
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label> <!-- Updated input name to "password" -->
+      <input type="password" name="password" class="form-control" value="<%= user.password %>" required> <!-- Updated input name to "password" -->
+    </div>
+    <button type="submit" class="btn btn-primary mt-3 form-control">Modifier</button>
+  </form>
+
+</div>
+<%- include('../templates/footer') %>

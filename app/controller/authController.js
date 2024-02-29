@@ -80,3 +80,51 @@ exports.showProfile = async (req, res)=>{
         console.log(error);
     }
 }
+
+// methode pour afficher le formulaire
+exports.showEditProfile = async (req, res)=>{
+    const user = await User.findById(req.user._id);
+    try {
+        res.render('user/editProfile', { user, error: null });
+    } catch (error) {
+        console.log(error);
+        res.render('user/editProfile', { user, error: 'Erreur lors du chargement du profil.' });
+    }
+};
+
+// methode pour modifier le profil
+exports.editProfile= async (req, res)=>{
+    // Retrieve the ID of the user to modify
+    const userId = req.user._id;
+    // Retrieve the user data based on its ID
+    const user = await User.findById(userId);
+ 
+    try {
+        // Retrieve the form data
+        const { email, name, password} = req.body;
+        // Check if the user is the owner of the account
+        if(user._id.equals(userId)){
+            // Update the user
+            user.email = email;
+            user.name = name;
+            
+            // Vérifiez si un nouveau mot de passe a été fourni
+            if(password && password.trim() !== '') {
+            user.password = await bcrypt.hash(password, 10); // Hash du nouveau mot de passe avant la mise à jour
+            }
+
+            // Save the user in the MongoDB database
+            await user.save();
+
+            // Redirect to the home page or a profile page
+            res.redirect('/');
+        } else {
+            // Redirect to the home page
+            res.render('/user/editProfile', { user, error: 'Vous n\'avez pas le droit de modifier ce profil' });
+        }
+    } catch (error) {
+        // Check if the user is the owner of the account
+        // Render the edit form with an error message
+        res.render('user/editProfile', { user, error: 'Erreur technique lors de la modification du profil.' });
+    }
+};
